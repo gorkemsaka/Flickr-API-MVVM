@@ -50,7 +50,8 @@ class FlickrTableViewCell: UITableViewCell {
         
         photoImage.snp.makeConstraints { make in
             make.top.equalTo(ownerName.snp.bottom).offset(8)
-            make.left.right.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(10)
         }
         
         photoDescription.snp.makeConstraints { make in

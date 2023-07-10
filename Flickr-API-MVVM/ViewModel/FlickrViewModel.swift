@@ -13,20 +13,19 @@ protocol IFlickrViewModel{
     var flickrPhotos : [Photo]? { get set }
     var flickrService : IFlickrService { get }
     
-    var viewControllerPresent : FlickrPresent?{ get }
+    var viewModelPresenter : ViewModelPresenter?{ get }
     
     func getDatas()
     func changeLoading()
-    func setDelegate(output: FlickrPresent)
+    func setDelegate(output: ViewModelPresenter)
 }
 
 // MARK: - FlickrViewModel
 final class FlickrViewModel : IFlickrViewModel{
+    var viewModelPresenter: ViewModelPresenter?
     
-    var viewControllerPresent: FlickrPresent?
-    
-    func setDelegate(output: FlickrPresent) {
-        viewControllerPresent = output
+    func setDelegate(output: ViewModelPresenter) {
+        viewModelPresenter = output
     }
     
     var flickrPhotos: [Photo]? = []
@@ -35,7 +34,7 @@ final class FlickrViewModel : IFlickrViewModel{
     
     // init oldugunda, service objesi olustur
     init() {
-       flickrService = FlickrService()
+        flickrService = FlickrService()
     }
     
     var flickrService: IFlickrService
@@ -45,16 +44,16 @@ final class FlickrViewModel : IFlickrViewModel{
         flickrService.fetchAllData { [weak self] response in
             self?.changeLoading()
             self?.flickrPhotos = response ?? []
-            self?.viewControllerPresent?.getDatas(values: self?.flickrPhotos ?? [])
+            self?.viewModelPresenter?.getDatas(values: self?.flickrPhotos ?? [])
         }
     }
     
     func changeLoading() {
         isLoading  = !isLoading
-        viewControllerPresent?.isLoading(isLoad: isLoading
+        viewModelPresenter?.isLoading(isLoad: isLoading
         )
         
     }
     
-
+    
 }
