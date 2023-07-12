@@ -11,7 +11,7 @@ import SnapKit
 
 protocol ViewModelPresenter{
     func isLoading(isLoad : Bool)
-    func getDatas(values : [Photo])
+    func getDatas(values : [Photo?])
 }
 
 final class ViewController: UIViewController {
@@ -20,7 +20,7 @@ final class ViewController: UIViewController {
     private let tableView : UITableView = UITableView()
     private let indicator : UIActivityIndicatorView = UIActivityIndicatorView()
     
-    private lazy var results : [Photo] = []
+    private lazy var results : [Photo?] = []
     
     var viewModel : IFlickrViewModel = FlickrViewModel()
     var recentPhotosVC : RecentPhotosViewController = RecentPhotosViewController()
@@ -67,17 +67,16 @@ final class ViewController: UIViewController {
     }
 }
 // MARK: - FlickrPresent Procotol
-extension ViewController : ViewModelPresenter{
+extension ViewController : ViewModelPresenter {
     
-    func getDatas(values: [Photo]) {
+    func getDatas(values: [Photo?]) {
         results = values
         tableView.reloadData()
     }
-    
+
     func isLoading(isLoad: Bool) {
         isLoad ? indicator.startAnimating() : indicator.stopAnimating()
     }
-
 }
 
 
@@ -91,13 +90,13 @@ extension ViewController : UITableViewDataSource, UITableViewDelegate {
         guard let cell : FlickrTableViewCell = tableView.dequeueReusableCell(withIdentifier: FlickrTableViewCell.Identifier.cellIdentifierName.rawValue) as? FlickrTableViewCell else{
             return UITableViewCell()
         }
-        cell.saveDatas(model: results[indexPath.row])
+        cell.saveDatas(model: results[indexPath.row]!)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentPhoto = results[indexPath.row]
-        recentPhotosVC.saveDatas(model: currentPhoto)
+        recentPhotosVC.saveDatas(model: currentPhoto!)
         navigationController?.pushViewController(recentPhotosVC, animated: true)
     }
 }
