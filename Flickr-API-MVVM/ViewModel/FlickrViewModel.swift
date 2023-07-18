@@ -13,7 +13,8 @@ protocol IFlickrViewModel{
     var flickrPhotos : [Photo]? { get set }
     var flickrService : IFlickrService { get }
     
-    var viewModelPresenter : ViewModelPresenter?{ get }
+    var viewModelPresenter : ViewModelPresenter? { get }
+    
     
     func getDatas()
     func changeLoading()
@@ -45,15 +46,18 @@ final class FlickrViewModel : IFlickrViewModel{
             self?.changeLoading()
             self?.flickrPhotos = response ?? []
             self?.viewModelPresenter?.getDatas(values: self?.flickrPhotos ?? [])
+            
         }
+        
+        
     }
     
     func changeLoading() {
         isLoading  = !isLoading
         viewModelPresenter?.isLoading(isLoad: isLoading
         )
-        
     }
     
+ 
     
 }

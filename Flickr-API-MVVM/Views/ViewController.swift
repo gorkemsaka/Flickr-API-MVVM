@@ -12,6 +12,7 @@ import SnapKit
 protocol ViewModelPresenter{
     func isLoading(isLoad : Bool)
     func getDatas(values : [Photo?])
+    func getBuddyIcon(model : [Photo?])
 }
 
 final class ViewController: UIViewController {
@@ -68,6 +69,11 @@ final class ViewController: UIViewController {
 }
 // MARK: - FlickrPresent Procotol
 extension ViewController : ViewModelPresenter {
+    
+    func getBuddyIcon(model: [Photo?]) {
+        results = model
+    }
+    
     
     func getDatas(values: [Photo?]) {
         results = values

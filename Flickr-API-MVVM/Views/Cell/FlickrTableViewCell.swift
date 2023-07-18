@@ -12,8 +12,11 @@ import AlamofireImage
 class FlickrTableViewCell: UITableViewCell {
     
     private let ownerName : UILabel = UILabel()
+    private let ownerProfilePhoto : UIImageView = UIImageView()
     private let photoImage : UIImageView = UIImageView()
     private let photoDescription : UILabel  = UILabel()
+    
+    private let flickerService : FlickrService = FlickrService()
     
     private let customImage = "https://picsum.photos/200/300"
     
@@ -36,34 +39,50 @@ class FlickrTableViewCell: UITableViewCell {
     }
     
     private func configure(){
+        addSubview(ownerProfilePhoto)
         addSubview(ownerName)
         addSubview(photoImage)
         addSubview(photoDescription)
+        drawDesign()
+    }
+    
+    
+    func drawDesign() {
+        ownerName.font = .boldSystemFont(ofSize: 18)
+        photoDescription.font = .italicSystemFont(ofSize: 12)
         
+        ownerProfilePhoto.layer.cornerRadius = 24
+        ownerProfilePhoto.layer.masksToBounds = true
         
-        ownerName.font = .boldSystemFont(ofSize: 20)
-        photoDescription.font = .italicSystemFont(ofSize: 10)
+        ownerProfilePhoto.snp.makeConstraints { make in
+            make.size.equalTo(48)
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(10)
+        }
+        
         ownerName.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
-            make.left.right.equalToSuperview()
+            make.centerY.equalTo(ownerProfilePhoto)
+            make.left.equalTo(ownerProfilePhoto.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-10)
         }
         
         photoImage.snp.makeConstraints { make in
-            make.top.equalTo(ownerName.snp.bottom).offset(8)
+            make.top.equalTo(ownerProfilePhoto.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
         }
         
         photoDescription.snp.makeConstraints { make in
             make.top.equalTo(photoImage.snp.bottom).offset(8)
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.left.right.bottom.equalToSuperview().inset(10)
         }
     }
+
     
     func saveDatas(model : Photo){
         ownerName.text = model.ownername
         photoDescription.text = model.title
+        flickerService.fetchBuddyIcon(model: model, view: ownerProfilePhoto)
         photoImage.af.setImage(withURL: URL(string: model.urlL ?? customImage) ?? URL(string: customImage)!)
     }
     

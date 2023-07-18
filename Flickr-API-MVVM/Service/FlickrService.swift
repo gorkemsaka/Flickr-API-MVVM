@@ -35,4 +35,17 @@ struct FlickrService : IFlickrService{
             response(data.photos?.photo)
         }
     }
+    
+    func fetchBuddyIcon(model : Photo?, view : UIImageView){
+        let iconFarm = model?.iconfarm
+        let iconServer = model?.iconserver
+        let nsID = model?.owner
+        
+        
+        let buddyIconUrlString : String = "http://farm\(iconFarm!).staticflickr.com/\(iconServer!)/buddyicons/\(nsID!).jpg"
+        let defaultBuddyIconUrlString : String = "https://www.flickr.com/images/buddyicon.gif"
+        
+        
+        view.af.setImage(withURL: (URL(string: buddyIconUrlString) ?? URL(string: defaultBuddyIconUrlString))!)
+    }
 }
