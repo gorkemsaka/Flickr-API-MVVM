@@ -1,6 +1,6 @@
 
 # About This Project
-- This app built as a first project and it's for improving MVVM and API skills. It contains some 3rd Parties Libraries (Alamofire, AlamofireImage, SnapKit). 
+- This app built as first project and it's for improving MVVM and API skills. It contains some 3rd Parties Libraries (Alamofire, AlamofireImage, SnapKit). 
 - The Flickr Clone app has 2 different screens. First one displaying whole recent photos timeline that posted by flickr users. Secon screen displaying the post infortmation that selected by click.
 
 
