@@ -20,3 +20,9 @@ git clone https://github.com/gorkemsaka/Flickr-API-MVVM
 
 <img width="390" alt="Screenshot 2023-07-17 at 10 16 26 PM" src="https://github.com/gorkemsaka/Flickr-API-MVVM/assets/83422730/d6b5f528-bb2c-46a6-ab95-75cded2107a5">
 
+
+## Resources
+
+- https://github.com/VB10/RickMortySwiftWithoutSB
+- https://academy.patika.dev/tr/paths/swift-ile-ios-programlama-patikasi
+
